@@ -71,7 +71,7 @@ restartButton.style.border = "black";
 restartButton.style.borderRadius = "5px";
 restartButton.style.zIndex = "9999";
 
-watchButton.innerText = "BHB Links";
+watchButton.innerText = "The Network";
 watchButton.style.position = "absolute";
 watchButton.style.left = "50%";
 watchButton.style.top = "80%";
