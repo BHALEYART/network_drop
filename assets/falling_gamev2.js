@@ -17,12 +17,12 @@ var watchButton = document.createElement("button");
 var playerWidth = 70; // Set the desired width for the player image
 var playerHeight = 100; // Set the desired height for the player image
 var goodItemWidth = 40; // Set the desired width for the good item image
-var goodItemHeight = 60; // Set the desired height for the good item image
+var goodItemHeight = 40; // Set the desired height for the good item image
 var badItemWidth = 80; // Set the desired width for the bad item image
 var badItemHeight = 80; // Set the desired height for the bad item image
-var surpriseItemWidth = 60; // Set the desired width for the surprise item image
-var surpriseItemHeight = 60; // Set the desired height for the surprise item image
-var medicalItemWidth = 60;
+var surpriseItemWidth = 30; // Set the desired width for the surprise item image
+var surpriseItemHeight = 50; // Set the desired height for the surprise item image
+var medicalItemWidth = 50;
 var medicalItemHeight = 50;
 var heartWidth = 30; // Set the desired width for the heart image
 var heartHeight = 30; // Set the desired height for the heart image
@@ -47,8 +47,9 @@ var immunityTimer = 0; // Remaining time for player immunity
 var backgroundMusic = new Audio("assets/game_music.mp3");
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.1;
-backgroundMusic.play();
-
+var immuneMusic = new Audio("assets/immune_music.mp3");
+immuneMusic.loop = false;
+immuneMusic.volume = 0.3;
 var goodItemSound = new Audio("assets/point_sound.mp3");
 var badItemSound = new Audio("assets/damage_sound.mp3");
 badItemSound.volume = 0.7;
@@ -64,26 +65,24 @@ restartButton.style.top = "70%";
 restartButton.style.transform = "translate(-50%, -50%)";
 restartButton.style.width = "100px";
 restartButton.style.height = "40px";
-restartButton.style.backgroundColor = "red";
+restartButton.style.backgroundColor = "orange";
 restartButton.style.color = "black";
 restartButton.style.border = "none";
 restartButton.style.borderRadius = "5px";
 restartButton.style.zIndex = "9999";
 
-watchButton.innerText = "The Network";
+watchButton.innerText = "BHB Links";
 watchButton.style.position = "absolute";
 watchButton.style.left = "50%";
 watchButton.style.top = "80%";
 watchButton.style.transform = "translate(-50%, -50%)";
 watchButton.style.width = "100px";
 watchButton.style.height = "40px";
-watchButton.style.backgroundColor = "red";
+watchButton.style.backgroundColor = "orange";
 watchButton.style.color = "black";
 watchButton.style.border = "none";
 watchButton.style.borderRadius = "5px";
 watchButton.style.zIndex = "9999";
-
-
 
 // Load images
 gameOverPileImage.src = "assets/game_over_pile.png";
@@ -158,6 +157,7 @@ function checkCollision() {
     ) {
       maxItems += 1;
       score += 100;
+      immuneMusic.play();
       isPlayerImmune = true;
       immunityTimer = immuneDuration;
       surpriseItems.splice(i, 1); // Remove the collided surprise item
@@ -218,14 +218,16 @@ function update() {
   // Draw player
   if (isPlayerImmune) {
     ctx.drawImage(playerImage, playerX, playerY, playerWidth, playerHeight);
+    immuneMusic.volume = 0.3;
   } else {
     ctx.drawImage(
       playerImageOriginal,
       playerX,
       playerY,
       playerWidth,
-      playerHeight
+      playerHeight,
     );
+    immuneMusic.volume = 0;
   }
 
   // Draw good items
@@ -351,6 +353,14 @@ if (isPlayerImmune) {
       }
     document.body.appendChild(restartButton);
     document.body.appendChild(watchButton);
+    ctx.drawImage(
+      gameOverPileImage,
+      -70,                          // X-coordinate of the image's top-left corner
+      320,        // Y-coordinate of the image's top-left corner
+      600,               // Width of the image
+      600                         // Height of the image
+    );
+    
     return; // Exit the update function
     
   }
@@ -387,7 +397,7 @@ restartButton.addEventListener("click", function () {
 
 // Add click event listener to URL button
 watchButton.addEventListener("click", function() {
-    window.location.href = ("https://twitter.com/networkcoineth"); // Replace with your desired URL
+    window.location.href = ("https://bombpop.link/bigheadbillions"); // Replace with your desired URL
   });
 
 // Handle mouse movement
@@ -396,8 +406,15 @@ canvas.addEventListener("mousemove", function (event) {
   playerX = event.clientX - rect.left - playerWidth / 2;
 });
 
+// Define a function to play background music
+function playBackgroundMusic() {
+  if(itemSpeed >= 2.1){
+    backgroundMusic.play();
+  }
+}
 
 // Start the game loop
 resetItems();
+setTimeout(playBackgroundMusic, 1000); // Play background music after 1 second
 update();
 
