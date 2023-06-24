@@ -65,9 +65,9 @@ restartButton.style.top = "70%";
 restartButton.style.transform = "translate(-50%, -50%)";
 restartButton.style.width = "100px";
 restartButton.style.height = "40px";
-restartButton.style.backgroundColor = "orange";
+restartButton.style.backgroundColor = "red";
 restartButton.style.color = "black";
-restartButton.style.border = "none";
+restartButton.style.border = "black";
 restartButton.style.borderRadius = "5px";
 restartButton.style.zIndex = "9999";
 
@@ -78,9 +78,9 @@ watchButton.style.top = "80%";
 watchButton.style.transform = "translate(-50%, -50%)";
 watchButton.style.width = "100px";
 watchButton.style.height = "40px";
-watchButton.style.backgroundColor = "orange";
+watchButton.style.backgroundColor = "red";
 watchButton.style.color = "black";
-watchButton.style.border = "none";
+watchButton.style.border = "black";
 watchButton.style.borderRadius = "5px";
 watchButton.style.zIndex = "9999";
 
