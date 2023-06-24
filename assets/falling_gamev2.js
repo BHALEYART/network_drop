@@ -157,7 +157,6 @@ function checkCollision() {
     ) {
       maxItems += 1;
       score += 100;
-      immuneMusic.play();
       isPlayerImmune = true;
       immunityTimer = immuneDuration;
       surpriseItems.splice(i, 1); // Remove the collided surprise item
